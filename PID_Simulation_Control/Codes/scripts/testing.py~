@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+import roslib
+import rospy
+
+from geometry_msgs.msg import Twist
+from std_msgs.msg import Empty
+from time import time
+
+def cruiser():
+	
+	print("in here")
+	
+	print("bfr tkeoff")
+	
+	print("aftr")
+	rospy.sleep(5)
+	land.publish(Empty())
+	rospy.spin()
+
+if __name__ == '__main__':
+	try:
+		print("entering")
+		rospy.init_node('EGAM')
+		pub_empty_takeoff = rospy.Publisher('/ardrone/takeoff', Empty, queue_size=1)
+		pub_empty_landing = rospy.Publisher('/ardrone/land', Empty,queue_size=1)
+		pub_empty_takeoff.publish(Empty());
+		cruiser()
+	except rospy.ROSInterruptException:
+		pass
+

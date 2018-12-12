@@ -1,0 +1,8 @@
+<launch>
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(find task_1_2)/world/final_env.world"/>
+		<arg name="headless" value="true"/>
+		<arg name="gui" value="true"/>
+		<arg name="verbose" value="true"/>
+	</include>
+</launch>

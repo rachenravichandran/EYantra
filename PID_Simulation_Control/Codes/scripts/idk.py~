@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+import roslib
+import rospy
+
+from geometry_msgs.msg import Twist
+from std_msgs.msg import Empty
+
+
+speed = .5
+turn = 1
+
+if __name__=="__main__":
+    	
+
+	pub_twist = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+	pub_empty_takeoff = rospy.Publisher('/ardrone/takeoff', Empty, queue_size=1)
+	pub_empty_landing = rospy.Publisher('/ardrone/land', Empty,queue_size=1)
+	rospy.init_node('drone_keyboard')
+
+	try:
+		while(1):
+			key = 't'
+			if (key == 't'):
+				pub_empty_takeoff.publish(Empty());
+	except:
+		print e
+		pass
+

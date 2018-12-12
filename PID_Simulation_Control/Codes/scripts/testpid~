@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+import roslib
+import rospy
+
+from geometry_msgs.msg import Twist
+from geometry_msgs.msg import PoseArray
+from std_msgs.msg import Empty
+from time import time
+
+def getPose(coordinates):
+	global xyz
+	xyz = coordinates
+
+
+def cruiser():
+	rospy.init_node('CRUISE_CONTROL')
+	prevtime=time()*1000
+	rospy.Subscriber("/whycon/poses", PoseArray, getPose)
+	control = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+	takeoff = rospy.Publisher('/ardrone/takeoff', Empty, queue_size=1)
+	land = rospy.Publisher('/ardrone/land', Empty,queue_size=1)
+	twist=Twist()
+	twist.linear.x=0
+	twist.linear.y=0.5
+	twist.linear.z=0
+	twist.angular.x=0
+	twist.angular.y=0
+	twist.angular.z=0
+	startime=time()
+	while(1):
+		takeoff.publish(Empty())
+		nowtime=time()
+		if (nowtime-startime>1):
+			break
+	while(1):
+		control.publish(twist)
+	rospy.spin()
+
+if __name__ == '__main__':
+	try:
+		cruiser()
+	except rospy.ROSInterruptException:
+		pass
+
